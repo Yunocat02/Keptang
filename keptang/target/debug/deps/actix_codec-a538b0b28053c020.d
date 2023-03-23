@@ -1,0 +1,10 @@
+D:\Nirut------------------------OK\EnET-C\030513347 MOBILE AND CLOUD COMPUTING\Project\Keptang\keptang\target\debug\deps\actix_codec-a538b0b28053c020.rmeta: C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src/lib.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\bcodec.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\framed.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\lines.rs
+
+D:\Nirut------------------------OK\EnET-C\030513347 MOBILE AND CLOUD COMPUTING\Project\Keptang\keptang\target\debug\deps\libactix_codec-a538b0b28053c020.rlib: C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src/lib.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\bcodec.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\framed.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\lines.rs
+
+D:\Nirut------------------------OK\EnET-C\030513347 MOBILE AND CLOUD COMPUTING\Project\Keptang\keptang\target\debug\deps\actix_codec-a538b0b28053c020.d: C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src/lib.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\bcodec.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\framed.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\lines.rs
+
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src/lib.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\bcodec.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\framed.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\actix-codec-0.5.0\src\lines.rs:

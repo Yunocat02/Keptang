@@ -1,0 +1,11 @@
+d:\Nirut------------------------OK\EnET-C\030513347 MOBILE AND CLOUD COMPUTING\Project\Keptang\keptang\target\debug\deps\url-f2bf68559134de70.rmeta: C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\lib.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\host.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\origin.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\parser.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\path_segments.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\slicing.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\quirks.rs
+
+d:\Nirut------------------------OK\EnET-C\030513347 MOBILE AND CLOUD COMPUTING\Project\Keptang\keptang\target\debug\deps\url-f2bf68559134de70.d: C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\lib.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\host.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\origin.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\parser.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\path_segments.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\slicing.rs C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\quirks.rs
+
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\lib.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\host.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\origin.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\parser.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\path_segments.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\slicing.rs:
+C:\Users\Nirut_PC\.cargo\registry\src\github.com-1ecc6299db9ec823\url-2.3.1\src\quirks.rs:
