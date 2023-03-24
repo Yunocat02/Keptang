@@ -14,5 +14,5 @@ pub struct Moneylist {
 pub struct Userdata {
     pub id: i32,
     pub name: String,
-    pub balancetotal: i32,
+    pub balance_total: i32,
 }

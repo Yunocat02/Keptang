@@ -1,8 +1,8 @@
-use actix_web::{ get, HttpResponse, Responder,web};
-use log::{info};
-use serde_json::json;
-use serde::{Serialize, Deserialize};
 use crate::models::moneylist::*;
+use actix_web::{get, web, HttpResponse, Responder};
+use log::info;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
 
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่คุณต้องการส่ง
 #[derive(Serialize, Deserialize)]
@@ -22,58 +22,53 @@ async fn get_money_today(user_id: web::Json<UserdataUpgate>) -> impl Responder {
     // ค่าเริ่มต้น
     let mut _user_money: i32 = 0;
     let mut _user_name = "";
-    let mut money_item_all = vec![];
+    let mut _user_item = vec![];
 
-    if id==40956 {
+    if id == 40956 {
         _user_money = 115000;
         _user_name = "vivat";
-        money_item_all = vec![
+        _user_item = vec![
             Moneylist {
                 list_id: 5,
                 description: "เลี้ยงข้าวสาว".to_string(),
                 date: "2023-03-15".to_string(),
                 amount: 100,
                 types: "expense".to_string(),
-           },
-           Moneylist {
-               list_id: 4,
-               description: "ซื้อข้าวเช้า".to_string(),
-               date: "2023-03-15".to_string(),
-               amount: 100,
-               types: "expense".to_string(),
-          },
-          Moneylist {
-           list_id: 3,
-           description: "แม่ให้".to_string(),
-           date: "2023-03-15".to_string(),
-           amount: 300,
-           types: "income".to_string(),
-           },
-    ];
-    }else{
+            },
+            Moneylist {
+                list_id: 4,
+                description: "ซื้อข้าวเช้า".to_string(),
+                date: "2023-03-15".to_string(),
+                amount: 100,
+                types: "expense".to_string(),
+            },
+            Moneylist {
+                list_id: 3,
+                description: "แม่ให้".to_string(),
+                date: "2023-03-15".to_string(),
+                amount: 300,
+                types: "income".to_string(),
+            },
+        ];
+    } else {
         _user_money = 0;
         _user_name = "";
     }
-    // ค่า หลังเช็คแล้ว
-    let money_total = 
-        Userdata{
-            id: id,
-            balancetotal: _user_money,
-            name: _user_name.to_string(),
-        };
     // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
-    #[derive(Serialize)]
+    #[derive(Serialize, Deserialize)]
     struct CombinedResponse {
-        total: Userdata,
+        name: String,
+        balance_total: i32,
         items: Vec<Moneylist>,
     }
 
     let combined_response = CombinedResponse {
-        total: money_total,
-        items: money_item_all,
+        name: _user_name.to_string(),
+        balance_total: _user_money,
+        items: _user_item,
     };
-    
+
     let response_body = json!(combined_response);
-    
+
     HttpResponse::Ok().json(response_body)
 }

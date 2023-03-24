@@ -20,13 +20,13 @@ async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
     let id: i32 = userdata.id;
     // ค่าเริ่มต้น
     let mut _user_money: i32 = 0;
-    let mut money_item_all = vec![];
+    let mut _user_item = vec![];
     let mut _user_name = "";
     // กรณีเช็ค database นี่แค่ตัวอย่าง
-    if id==40956 {
+    if id == 40956 {
         _user_money = 115000;
         _user_name = "vivat";
-        money_item_all = vec![
+        _user_item = vec![
         Moneylist {
              list_id: 5,
              description: "เลี้ยงข้าวสาว".to_string(),
@@ -42,11 +42,11 @@ async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
             types: "expense".to_string(),
        },
        Moneylist {
-        list_id: 3,
-        description: "แม่ให้".to_string(),
-        date: "2023-03-15".to_string(),
-        amount: 300,
-        types: "income".to_string(),
+            list_id: 3,
+            description: "แม่ให้".to_string(),
+            date: "2023-03-15".to_string(),
+            amount: 300,
+            types: "income".to_string(),
         },
         Moneylist {
             list_id: 2,
@@ -67,23 +67,18 @@ async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
         _user_money = 0;
         _user_name = "noname";
     }
-    // ค่า หลังเช็คแล้ว
-    let money_total = 
-        Userdata{
-            id: id,
-            balancetotal: _user_money,
-            name: _user_name.to_string(),
-        };
-   // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
-   #[derive(Serialize)]
+    // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
+    #[derive(Serialize, Deserialize)]
    struct CombinedResponse {
-       total: Userdata,
+       name: String,
+       balance_total: i32,
        items: Vec<Moneylist>,
    }
 
    let combined_response = CombinedResponse {
-       total: money_total,
-       items: money_item_all,
+        name: _user_name.to_string(),
+        balance_total: _user_money,
+        items: _user_item,
    };
    
    let response_body = json!(combined_response);
