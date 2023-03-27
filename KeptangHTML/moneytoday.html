@@ -1,108 +1,151 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>รายรับ/รายจ่ายวันนี้</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-        crossorigin="anonymous"></script>
-    <link href="headers.css" rel="stylesheet">
-</head>
+    <style>
+        html,
+        body {
+            height: 97%;
+        }
 
-<body>
-    <header class="p-3 text-bg-dark border-bottom">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="money.html" class="nav-link px-2 text-white">หน้าหลัก</a></li>
-                    <li><a href="moneytoday.html" class="nav-link px-2 text-secondary">รายรับ/รายจ่ายวันนี้</a></li>
-                    <li><a href="moneyadd.html" class="nav-link px-2 text-white">เพิ่มรายรับ/รายจ่าย</a></li>
-                    <li><a href="moneyedit.html" class="nav-link px-2 text-white">แก้ไขรายรับรายจ่าย</a></li>
+        .bg-light {
+            flex: 1;
+            height: 100%;
+            width: 100%;
+            padding-bottom: 3rem;
+            background-image: url('image.png');
+            background-position: center;
+        }
 
+        @media (min-width: 992px) {
+            .bg-light {
+                padding-top: 4rem;
+            }
+        }
+
+        .pt-0 {
+            padding-top: 0 !important;
+        }
+
+        .my-2 {
+            margin-top: 2rem !important;
+            margin-bottom: 2rem !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .col-lg-6 {
+            max-width: 50% !important;
+        }
+
+        .lead {
+            font-size: 1.25rem !important;
+        }
+
+        .col-md-6 {
+            max-width: 50% !important;
+        }
+
+        .col-md-5 {
+            max-width: 41.6667% !important;
+        }
+    </style>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+            crossorigin="anonymous"></script>
+        <!-- <link href="headers.css" rel="stylesheet"> -->
+        <title>w1</title>
+    </head>
+
+<body class="mx-5" onload="getData()" style="background-color:#B2A4FF;">
+    <header style="background-color:#B2A4FF ;">
+        <div div class="row">
+            <div class="col-6">
+                <ul class="nav justify-content-lg-start">
+                    <li><a href="money.html" class="nav-link px-2 text-white fs-5">หน้าหลัก</a></li>
+                    <li><a href="moneytoday.html" class="nav-link px-2 text-warning fs-5">รายรับ/รายจ่ายวันนี้</a></li>
+                    <li><a href="moneyadd.html" class="nav-link px-2 text-white fs-5">เพิ่มรายรับ/รายจ่าย</a></li>
+                    <li><a href="moneyedit.html" class="nav-link px-2 text-white fs-5">แก้ไขรายรับรายจ่าย</a></li>
                 </ul>
-                <div class="text-end">
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="profile.html" class="nav-link px-2 text-white">โปรไฟล์</a></li>
-                    </ul>
-
-                </div>
+            </div>
+            <div class="col-6">
+                <ul class="nav justify-content-end">
+                    <li><a href="profile.html" class="nav-link px-2 text-white fs-5">โปรไฟล์</a></li>
+                </ul>
             </div>
         </div>
     </header>
-    <div class="pt-0 my-2 text-center border-bottom">
-        <h1 class="display-4 fw-bold text-body-emphasis">Keptang</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">เว็บสรุปรายรับรายจ่าย</p>
+    <div class="bg-light">
+        <div class="container">
+            <div class="pt-0 my-2 text-center ">
+                <h1 class="display-4 fw-bold text-body-emphasis ">Keptang</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead mb-4">เว็บสรุปรายรับรายจ่าย</p>
+                </div>
+            </div>
+            <div class="my-5 col-md-6">
+                <h1>รายรับ/รายจ่ายวันนี้</h1>
+            </div>
+            <div class="text-center mb-5">
+                <h1>2023-03-15</h1>
+            </div>
         </div>
-    </div>
-    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">รายรับ</th>
+                    <th scope="col">รายจ่าย</th>
+                    <th scope="col">คงเหลือ</th>
+                    <th scope="col">หมายเหตุ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
-        <div class="my-5 text-center">
-            <h1>รายรับ/รายจ่ายวันนี้</h1>
-            <h3>2023-03-15</h3>
-        </div>
-    </div>
-    <table class="table table-striped table-dark">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">รายรับ</th>
-                <th scope="col">รายจ่าย</th>
-                <th scope="col">คงเหลือ</th>
-                <th scope="col">หมายเหตุ</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-        </tbody>
-    </table>
-    <script>
-        function getData() {
-            const userId = 40956;
-            fetch(`http://localhost:8080/profile?id=${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const accountid = data.id;
-                    document.getElementById('accountid').textContent = accountid;
-                    const username = data.name;
-                    document.getElementById('username').textContent = username;
-                    const totalbalance = data.balance_total;
-                    document.getElementById('totalbalance').textContent = totalbalance;
-                });
-        }
-
-    </script>
+            </tbody>
+        </table>
 </body>
 
 </html>

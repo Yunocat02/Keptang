@@ -14,11 +14,15 @@ struct UserdataUpgate {
 
 // GET /money: สำหรับอ่านข้อมูลรายการรายรับ-รายจ่ายวันนี้
 #[get("/money")]
-async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
+async fn get_money(id: web::Query<HashMap<String, String>>) -> impl Responder {
     info!("Keptang money");
 
     // ค่า id ที่รับมา
-    let id: i32 = user_id.id;
+    let id_param = id.get("id");
+    let id: i32 = match id_param {
+        Some(val) => val.parse::<i32>().unwrap_or(0),
+        None => 0,
+    };
 
     // ค่าเริ่มต้น
     let mut _user_money_today: i32 = 0;
@@ -60,6 +64,7 @@ async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
             },
             
         ];
+        
 
         _user_balance_income = 0;
         _user_balance_expense = 0;
@@ -106,12 +111,17 @@ async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
         .body(response_body)
     
 }
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // ค่าโฮสต์และพอร์ท
     let addr = "127.0.0.1:8080";
 
     // เปิดเซิร์ฟเวอร์
-    let server = HttpServer::new(|| App::new().service(get_money)).bind(addr)?;
+    let server = HttpServer::new(|| {
+        App::new()
+            .service(get_money)
+    })
+    .bind(addr)?;
 
     server.run().await
 }
