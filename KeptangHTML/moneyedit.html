@@ -44,6 +44,35 @@
             <p class="lead mb-4">เว็บสรุปรายรับรายจ่าย</p>
         </div>
     </div>
+    <div class="container">
+        <div class="my-5 col-md-6">
+            <h1>แก้ไขรายรับ/รายจ่าย</h1>
+        </div>
+        <form>
+            <div class="mb-3">
+                <label for="type" class="form-label">ประเภท</label>
+                <select class="form-select" id="type" name="type">
+                    <option value="รายรับ">รายรับ</option>
+                    <option value="รายจ่าย">รายจ่าย</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="amount" class="form-label">จำนวนเงิน</label>
+                <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+            <div class="mb-3">
+                <label for="note" class="form-label">หมายเหตุ</label>
+                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="datetime" class="form-label">วันที่-เวลา</label>
+                <input type="datetime-local" class="form-control" id="datetime" name="datetime" required>
+            </div>
+            <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
+        </form>
+    </div>
+
+
 </body>
 
 </html>

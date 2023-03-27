@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
-        <link href="headers.css" rel="stylesheet">
+    <link href="headers.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,6 +44,66 @@
             <p class="lead mb-4">เว็บสรุปรายรับรายจ่าย</p>
         </div>
     </div>
+    <div class="container">
+        <div class="my-5 col-md-6">
+            <h1>เพิ่มรายรับ/รายจ่าย</h1>
+        </div>
+        <form>
+            <div class="mb-3">
+                <label for="type" class="form-label">ประเภท</label>
+                <select class="form-select" id="type" name="type">
+                    <option value="รายรับ">รายรับ</option>
+                    <option value="รายจ่าย">รายจ่าย</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="amount" class="form-label">จำนวนเงิน</label>
+                <input type="number" class="form-control" id="amount" name="amount" required>
+            </div>
+            <div class="mb-3">
+                <label for="note" class="form-label">หมายเหตุ</label>
+                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="datetime" class="form-label">วันที่-เวลา</label>
+                <input type="datetime-local" class="form-control" id="datetime" name="datetime" required>
+            </div>
+            <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
+        </form>
+    </div>
+<script>function sendData(event) {
+    // ไม่ให้ฟอร์ม submit อัตโนมัติ
+    event.preventDefault();
+  
+    // ดึงข้อมูลจากฟอร์ม
+    const form = document.querySelector('#myForm');
+    const data = new FormData(form);
+  
+    // ส่งข้อมูลไปยัง Rust server ผ่าน HTTP request
+    fetch('http://localhost:8000/endpoint', {
+      method: 'POST',
+      body: data,
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(text => {
+        console.log('Response from server:', text);
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+      });
+  }
+  
+  // เมื่อฟอร์มถูก submit ให้ส่งข้อมูลไปยัง Rust server
+  const form = document.querySelector('#myForm');
+  form.addEventListener('submit', sendData);</script>
+
+
+
 </body>
 
 </html>

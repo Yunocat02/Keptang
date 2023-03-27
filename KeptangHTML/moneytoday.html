@@ -61,6 +61,7 @@
                 <th scope="col">หมายเหตุ</th>
             </tr>
         </thead>
+        
         <tbody>
             <tr>
                 <th scope="row">1</th>
@@ -86,6 +87,22 @@
 
         </tbody>
     </table>
+    <script>
+        function getData() {
+            const userId = 40956;
+            fetch(`http://localhost:8080/profile?id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const accountid = data.id;
+                    document.getElementById('accountid').textContent = accountid;
+                    const username = data.name;
+                    document.getElementById('username').textContent = username;
+                    const totalbalance = data.balance_total;
+                    document.getElementById('totalbalance').textContent = totalbalance;
+                });
+        }
+
+    </script>
 </body>
 
 </html>
