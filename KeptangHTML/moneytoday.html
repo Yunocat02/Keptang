@@ -108,44 +108,70 @@
                 <h1>รายรับ/รายจ่ายวันนี้</h1>
             </div>
             <div class="text-center mb-5">
-                <h1>2023-03-15</h1>
+                <h1><span id="datetoday"></span></h1>
             </div>
         </div>
         <table class="table table-striped">
-            <thead>
+            <tbody id="table-body">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">รายรับ</th>
-                    <th scope="col">รายจ่าย</th>
-                    <th scope="col">คงเหลือ</th>
-                    <th scope="col">หมายเหตุ</th>
+                  <th scope="col">ลำดับ</th>
+                  <th scope="col">รายรับ</th>
+                  <th scope="col">รายจ่าย</th>
+                  <th scope="col">คงเหลือวันนี้</th>
+                  <th scope="col">รายละเอียด</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-            </tbody>
+              </tbody>
         </table>
+        <script>
+            function getData() {
+                const userId = 40956;
+                fetch(`http://localhost:8080/money/today?id=${userId}`)
+                .then(response => response.json())
+  .then(data => {
+    const datetoday = data.date;
+    document.getElementById('datetoday').textContent = datetoday;
+    const items = data.items;
+    const tableBody = document.getElementById('table-body');
+    let incomeTotal = 0;
+    let expenseTotal = 0;
+    let rowNumber = 1;
+    
+    items.forEach(item => {
+      const row = document.createElement('tr');
+      const rowNumCell = document.createElement('td');
+      rowNumCell.textContent = rowNumber;
+      row.appendChild(rowNumCell);
+      
+      const amountCell = document.createElement('td');
+      const descCell = document.createElement('td');
+      
+      if (item.types === 'income') {
+        amountCell.textContent = item.amount;
+        incomeTotal += item.amount;
+        descCell.textContent = item.description;
+      } else if (item.types === 'expense') {
+        amountCell.textContent = '';
+        expenseTotal += item.amount;
+        descCell.textContent = item.description;
+      }
+      
+      const expenseCell = document.createElement('td');
+      expenseCell.textContent = item.types === 'expense' ? item.amount : '';
+      
+      const balanceCell = document.createElement('td');
+      balanceCell.textContent = incomeTotal - expenseTotal;
+      
+      row.appendChild(amountCell);
+      row.appendChild(expenseCell);
+      row.appendChild(balanceCell);
+      row.appendChild(descCell);
+      
+      tableBody.appendChild(row);
+      rowNumber++;
+    });
+  });
+            }
+        </script>
 </body>
 
 </html>

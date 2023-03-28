@@ -10,7 +10,7 @@ use std::collections::HashMap;
 
 
 use crate::{
-    ListMoneyToday, _date_today, _user_balance_total, _user_item, _user_money_today, _user_name,
+    ListMoneyToday, _user_balance_total, _user_item, _user_money_today, _user_name,
     get_user_item,
 };
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่คุณต้องการส่ง
@@ -46,7 +46,6 @@ async fn get_money(id: web::Query<HashMap<String, String>>) -> impl Responder {
             user_name = _user_name.to_string();
             user_balance_total = _user_balance_total;
             user_money_today = _user_money_today;
-            date_today = _date_today.to_string();
             user_item = _user_item.clone();
             user_balance_income = _user_balance_income;
             user_balance_expense = _user_balance_expense;
@@ -82,7 +81,6 @@ async fn get_money(id: web::Query<HashMap<String, String>>) -> impl Responder {
         .header("Access-Control-Allow-Headers", "Content-Type")
         .content_type("application/json")
         .body(response_body)
-    
 }
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

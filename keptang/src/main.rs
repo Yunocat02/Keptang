@@ -27,10 +27,11 @@ static mut _user_balance_total: i32 = 0;
 static mut _user_money_today: i32 = 0;
 static mut _user_balance_income: i32 = 0;
 static mut _user_balance_expense: i32 = 0;
+static mut _date_today: &'static str = "";
 static mut _user_name: &'static str = "";
 static mut _user_item: Vec<ListMoneyToday> = vec![];
 static mut _user_id: i32 = 0;
-static mut _date_today: &'static str = "2023-03-15";
+
 
 fn get_user_item() -> Vec<ListMoneyToday> {
     unsafe { _user_item.clone() }
@@ -49,6 +50,7 @@ async fn main() -> std::io::Result<()> {
         _user_balance_total = 12500;
         _user_name = "vivat";
         _user_id = 40956;
+        _date_today = "2023-03-15";
         _user_item = vec![
             ListMoneyToday {
                 list_id: 5,
@@ -67,7 +69,7 @@ async fn main() -> std::io::Result<()> {
                 description: "แม่ให้".to_string(),
                 amount: 300,
                 types: "income".to_string(),
-            },
+            },            
         ];
         for item in &_user_item {
             if item.types == "income" {

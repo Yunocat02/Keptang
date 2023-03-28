@@ -29,6 +29,7 @@ async fn post_money(input_data: web::Json<PostMoneyRequest>) -> impl Responder {
     info!("post money");
     debug!("post: ✅");
 
+
     // ค่าเริ่มต้น ที่รับมาแบบ JSON (ถ้าอยากแก้ไข เติม mut หลัง let)
     let user_data = input_data.into_inner();
 

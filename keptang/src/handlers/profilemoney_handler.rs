@@ -6,7 +6,7 @@ use crate::App;
 use std::collections::HashMap;
 
 use crate::{
-    ListMoneyToday, _date_today, _user_balance_total, _user_item, _user_money_today, _user_name, _user_id,
+    ListMoneyToday, _user_balance_total, _user_item, _user_money_today, _user_name, _user_id,
     get_user_item,
 };
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่คุณต้องการส่ง
