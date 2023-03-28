@@ -135,10 +135,13 @@
             .then(data => {
               const totalbalance = data.balance_total;
               document.getElementById('totalbalance').textContent = totalbalance;
+              
               const todaybalance = data.balance_today;
               document.getElementById('todaybalance').textContent = todaybalance;
+
               const incomebalance = data.balance_income;
               document.getElementById('incomebalance').textContent = incomebalance;
+
               const expensebalance = data.balance_expense;
               document.getElementById('expensebalance').textContent = expensebalance;
             });
