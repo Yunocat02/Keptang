@@ -1,98 +1,89 @@
-use crate::App;
-use crate::HttpServer;
-use crate::_user_balance_expense;
-use crate::_user_balance_income;
-use actix_web::{get, web, HttpResponse, Responder};
-use log::info;
-use serde::{Deserialize, Serialize};
+use actix_web::{ get, HttpResponse, Responder, web};
+use log::{ info};
 use serde_json::json;
-use std::collections::HashMap;
+use serde::{Serialize, Deserialize};
+use crate::models::moneylist::*;
 
-
-use crate::{
-    ListMoneyToday, _user_balance_total, _user_item, _user_money_today, _user_name,
-    get_user_item,
-};
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่คุณต้องการส่ง
 #[derive(Serialize, Deserialize)]
 struct UserdataUpgate {
     id: i32,
 }
-// GET /money: สำหรับอ่านข้อมูลรายการรายรับ-รายจ่ายวันนี้
+
+// GET /money: สำหรับอ่านข้อมูลรายการรายรับรายจ่ายทั้งหมด
 #[get("/money")]
-async fn get_money(id: web::Query<HashMap<String, String>>) -> impl Responder {
+async fn get_money(user_id: web::Json<UserdataUpgate>) -> impl Responder {
     info!("Keptang money");
 
     // ค่า id ที่รับมา
-    let id_param = id.get("id");
-    let id: i32 = match id_param {
-        Some(val) => val.parse::<i32>().unwrap_or(0),
-        None => 0,
-    };
-
+    let userdata = user_id.into_inner();
+    let id: i32 = userdata.id;
     // ค่าเริ่มต้น
-    let mut user_name = String::new();
-    let mut user_balance_total = 0;
-    let mut user_money_today = 0;
-    let mut date_today = String::new();
-    let mut user_item = Vec::<ListMoneyToday>::new();
-    let mut user_balance_income = 0;
-    let mut user_balance_expense = 0;
-    
-
-
+    let mut _user_money: i32 = 0;
+    let mut _user_item = vec![];
+    let mut _user_name = "";
+    // กรณีเช็ค database นี่แค่ตัวอย่าง
     if id == 40956 {
-        unsafe {
-            user_name = _user_name.to_string();
-            user_balance_total = _user_balance_total;
-            user_money_today = _user_money_today;
-            user_item = _user_item.clone();
-            user_balance_income = _user_balance_income;
-            user_balance_expense = _user_balance_expense;
-        }
+        _user_money = 115000;
+        _user_name = "vivat";
+        _user_item = vec![
+        Moneylist {
+             list_id: 5,
+             description: "เลี้ยงข้าวสาว".to_string(),
+             date: "2023-03-15".to_string(),
+             amount: 100,
+             types: "expense".to_string(),
+        },
+        Moneylist {
+            list_id: 4,
+            description: "ซื้อข้าวเช้า".to_string(),
+            date: "2023-03-15".to_string(),
+            amount: 100,
+            types: "expense".to_string(),
+       },
+       Moneylist {
+            list_id: 3,
+            description: "แม่ให้".to_string(),
+            date: "2023-03-15".to_string(),
+            amount: 300,
+            types: "income".to_string(),
+        },
+        Moneylist {
+            list_id: 2,
+            description: "สาวเลี้ยง".to_string(),
+            date: "2023-03-14".to_string(),
+            amount: 5000,
+            types: "income".to_string(),
+        },
+        Moneylist {
+            list_id: 1,
+            description: "นิวจีนบั้มใหม่".to_string(),
+            date: "2023-03-13".to_string(),
+            amount: 5000,
+            types: "expense".to_string(),
+        },     
+    ];
+    }else{
+        _user_money = 0;
+        _user_name = "noname";
     }
-        
     // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
     #[derive(Serialize, Deserialize)]
-    struct CombinedResponse {
-        name: String,
-        balance_total: i32,
-        balance_today: i32,
-        balance_income: i32,
-        balance_expense: i32,
-        date: String,
-        items: Vec<ListMoneyToday>,
-    }
+   struct CombinedResponse {
+       name: String,
+       balance_total: i32,
+       items: Vec<Moneylist>,
+   }
 
-    let combined_response = CombinedResponse {
-        name: user_name,
-        balance_total: user_balance_total,
-        balance_today: user_money_today,
-        balance_income: user_balance_income,
-        balance_expense: user_balance_expense,
-        date: date_today,
-        items: user_item,
-    };
-
-    let response_body = serde_json::to_string(&combined_response).unwrap();
-    HttpResponse::Ok()
-        .header("Access-Control-Allow-Origin", "*")
-        .header("Access-Control-Allow-Methods", "GET")
-        .header("Access-Control-Allow-Headers", "Content-Type")
-        .content_type("application/json")
-        .body(response_body)
+   let combined_response = CombinedResponse {
+        name: _user_name.to_string(),
+        balance_total: _user_money,
+        items: _user_item,
+   };
+   
+   let response_body = json!(combined_response);
+    
+    HttpResponse::Ok().json(response_body)
 }
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    // ค่าโฮสต์และพอร์ท
-    let addr = "127.0.0.1:8080";
 
-    // เปิดเซิร์ฟเวอร์
-    let server = HttpServer::new(|| {
-        App::new()
-            .service(get_money)
-    })
-    .bind(addr)?;
 
-    server.run().await
-}
