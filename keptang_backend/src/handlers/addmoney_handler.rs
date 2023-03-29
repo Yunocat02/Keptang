@@ -24,7 +24,7 @@ struct PostMoneyRequest {
     data_item: MoneylistUpgate,
 }
 // POST /money: สำหรับเพิ่มข้อมูลรายการรายรับรายจ่ายใหม่
-#[post("/money/saveing")]
+#[post("/money/saving")]
 async fn post_money(input_data: web::Json<PostMoneyRequest>) -> impl Responder {
     info!("post money");
     debug!("post: ✅");
