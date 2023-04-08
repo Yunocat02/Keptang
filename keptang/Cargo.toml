@@ -11,3 +11,6 @@ env_logger = "0.10.0"
 log = "0.4.17"
 serde = {version="1.0.154", features=["derive"]}
 serde_json = "1.0.94"
+mysql_async = "0.31.3"
+firebase-rs = "2.0.6"
+mysql = "23.0.1"
