@@ -43,6 +43,7 @@ async fn get_money_today(user_id: web::Json<UserdataUpgate>) -> impl Responder {
                 description: "เลี้ยงข้าวสาว".to_string(),
                 amount: 100,
                 types: "expense".to_string(),
+                
             },
             ListMoneyToday {
                 list_id: 4,

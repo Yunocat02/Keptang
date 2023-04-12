@@ -1,9 +1,8 @@
-use crate::models::moneylist::*;
 use actix_web::{put, web, HttpResponse};
 use log::{debug, info};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-
+use crate::models::money_model::*;
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่คุณต้องการส่ง
 #[derive(Serialize, Deserialize)]
 struct UserdataUpgate {
@@ -11,7 +10,7 @@ struct UserdataUpgate {
 }
 
 #[derive(Serialize, Deserialize)]
-struct MoneylistUpgate {
+struct money_listUpgate {
     description: String,
     date: String,
     amount: i32,
@@ -20,7 +19,7 @@ struct MoneylistUpgate {
 #[derive(Serialize, Deserialize)]
 struct PostMoneyRequest {
     user_data: UserdataUpgate,
-    dataitem: MoneylistUpgate,
+    dataitem: money_listUpgate,
 }
 
 // PUT /money/edit/{id}: รับ JSON ที่มีค่าของคีย์ "expense"/"income" เป็นรายการ JSON ที่มีข้อมูลของรายการรายจ่ายที่ต้องการอัปเดตด้วย ID ที่ระบุ
@@ -34,7 +33,7 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<PostMoneyReques
     let id: i32 = list_id.to_string().parse().unwrap();
 
     // สมมุติข้อมูลเดิมของ id 3
-    let mut data_old = Moneylist {
+    let mut data_old = money_list {
         list_id: 3,
         description: "แม่ให้".to_string(),
         date: "2023-03-15".to_string(),
@@ -42,7 +41,7 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<PostMoneyReques
         types: "income".to_string(),
     };
 
-    let data_new = Moneylist {
+    let data_new = money_list {
         list_id: id,
         description: input_data.dataitem.description,
         date: input_data.dataitem.date,
@@ -53,7 +52,7 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<PostMoneyReques
     if id == 3 {
         debug!("มี list_id นี้จริง ✅");
     } else {
-        data_old = Moneylist {
+        data_old = money_list {
             list_id: 0,
             description: "ไม่มี".to_string(),
             date: "ไม่บอก".to_string(),
@@ -66,8 +65,8 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<PostMoneyReques
     // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
     #[derive(Serialize, Deserialize)]
     struct CombinedResponse {
-        items_old: Moneylist,
-        items_new: Moneylist,
+        items_old: money_list,
+        items_new: money_list,
         text: String,
     }
 

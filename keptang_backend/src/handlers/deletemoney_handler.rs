@@ -2,7 +2,7 @@ use actix_web::{delete, web, HttpResponse};
 use log::{debug, info};
 use serde_json::json;
 use serde::{Deserialize, Serialize};
-use crate::models::moneylist::*;
+use crate::models::money_model::*;
 
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่ต้องการ Request
 #[derive(Serialize, Deserialize)]
@@ -21,7 +21,7 @@ async fn delete_money(list_id: web::Path<i32>,input_data: web::Json<UserdataUpga
     let id: i32 = list_id.to_string().parse().unwrap();
 
     // สมมุติข้อมูลเดิมของ id 3
-    let mut data_old = Moneylist {
+    let mut data_old = money_list {
         list_id: 3,
         description: "แม่ให้".to_string(),
         date: "2023-03-15".to_string(),
@@ -34,7 +34,7 @@ async fn delete_money(list_id: web::Path<i32>,input_data: web::Json<UserdataUpga
         debug!("DELETE {} ❌", list_id);
     }else{  // สมมุติไม่มีใน ฐานข้อมูล
         debug!("none data list_id: {} ❌", list_id);
-        data_old = Moneylist {
+        data_old = money_list {
             list_id: 0,
             description: "ไม่มีเด้อ".to_string(),
             date: "ไม่มีเด้อ-ไม่มีเด้อ-ไม่มีเด้อ".to_string(),
@@ -47,7 +47,7 @@ async fn delete_money(list_id: web::Path<i32>,input_data: web::Json<UserdataUpga
     // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
     #[derive(Serialize, Deserialize)]
     struct CombinedResponse {
-        items: Moneylist,
+        items: money_list,
         text: String,
     }
 
