@@ -2,81 +2,60 @@ use actix_web::{put, web, HttpResponse};
 use log::{debug, info};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use crate::models::editmoney_model::*;
 use crate::models::money_model::*;
-// สร้าง struct ใหม่ที่มีเฉพาะส่วนที่คุณต้องการส่ง
-#[derive(Serialize, Deserialize)]
-struct UserdataUpgate {
-    id: i32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct money_listUpgate {
-    description: String,
-    date: String,
-    amount: i32,
-    types: String,
-}
-#[derive(Serialize, Deserialize)]
-struct PostMoneyRequest {
-    user_data: UserdataUpgate,
-    dataitem: money_listUpgate,
-}
 
 // PUT /money/edit/{id}: รับ JSON ที่มีค่าของคีย์ "expense"/"income" เป็นรายการ JSON ที่มีข้อมูลของรายการรายจ่ายที่ต้องการอัปเดตด้วย ID ที่ระบุ
 #[put("/money/item/{id}")]
-async fn put_money(list_id: web::Path<i32>,input_data: web::Json<PostMoneyRequest>) -> HttpResponse {
+async fn put_money(list_id: web::Path<i32>,input_data: web::Json<edit_request>) -> HttpResponse {
     info!("put money by id");
     debug!("id: {} 🪄", list_id);
 
     // ค่าเริ่มต้น ที่รับมาแบบ JSON (ถ้าอยากแก้ไข เติม mut หลัง let)
-    let input_data = input_data.into_inner();
+    let user_data = input_data.into_inner();
     let id: i32 = list_id.to_string().parse().unwrap();
+    let types_edit = user_data.data_item.types;
+    let types_new = types_edit.clone();
+    
+    
+    let mut types_old:String = "".to_string();
+    let mut amount_old = 0;
+    let amount_new = user_data.data_item.amount;
 
-    // สมมุติข้อมูลเดิมของ id 3
-    let mut data_old = money_list {
-        list_id: 3,
-        description: "แม่ให้".to_string(),
-        date: "2023-03-15".to_string(),
-        amount: 100,
-        types: "income".to_string(),
-    };
-
-    let data_new = money_list {
-        list_id: id,
-        description: input_data.dataitem.description,
-        date: input_data.dataitem.date,
-        amount: input_data.dataitem.amount,
-        types: input_data.dataitem.types,
-    };
-
-    if id == 3 {
-        debug!("มี list_id นี้จริง ✅");
-    } else {
-        data_old = money_list {
-            list_id: 0,
-            description: "ไม่มี".to_string(),
-            date: "ไม่บอก".to_string(),
-            amount: 0,
-            types: "ไม่นะ".to_string(),
-        };
-        debug!("ไม่มี list_id นี้จริง 🐤");
+    // ดึงค่าเก่ามาเช็คเพื่อคืนค่า amount
+    let data = get_moneylist_byid(user_data.user_data.user_id,id);
+        for i in data {
+            types_old = i.types;
+            amount_old = i.amount;
+        }
+    
+    // กลับคั่ว type เพราะเราลบค่าออกไป
+    if types_old.to_string() == "income"{
+        types_old = "expenses".to_string();
+    }else{
+        types_old = "income".to_string();
     }
+    // debug!("คืนค่าเดิมก่อน 🪄");
+    // debug!("amount_old: {} 🪄", amount_old);
+    // debug!("types: {} 🪄", types_old);
+    // แก้ไข ยอดเงินทั้งหมดเป็นยอดเดิม
+    edit_balance_total(user_data.user_data.user_id,amount_old,types_old);
 
-    // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
-    #[derive(Serialize, Deserialize)]
-    struct CombinedResponse {
-        items_old: money_list,
-        items_new: money_list,
-        text: String,
-    }
+    // แก้ไขค่าใหม่
+    edit_money(user_data.user_data.user_id,
+        id,
+        user_data.data_item.description,
+        user_data.data_item.date,
+        user_data.data_item.amount,
+        types_edit);
 
-    let combined_response = CombinedResponse {
-        items_old: data_old,
-        items_new: data_new,
-        text: "ทำการแก้ไขข้อมูลละเด้อ".to_string(),
-    };
 
-    let response_body = json!(combined_response);
+    // debug!("แก้ค่าใหม่ 🪄");
+    // debug!("amount_old: {} 🪄", amount_new);
+    // debug!("types: {} 🪄", types_new);
+    
+    // แก้ไข ยอดเงินทั้งหมดเป็นค่าล่าสุด
+    edit_balance_total(user_data.user_data.user_id,amount_new,types_new);
 
-    HttpResponse::Ok().json(response_body)
+    HttpResponse::Ok().body("ทำการแก้ไขข้อมูลสำเร็จ👌")
 }
