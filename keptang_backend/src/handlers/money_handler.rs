@@ -15,7 +15,7 @@ async fn get_money(user_id: web::Json<money_request>) -> impl Responder {
     let userdata = user_id.into_inner();
     let id: i32 = userdata.id;
     //ฟังก์ชันget_user_money จาก src\models\moneylist.rs
-    let data = get_user_money (id);
+    let data = get_user_money(id);
 
     HttpResponse::Ok().json(data)
 }

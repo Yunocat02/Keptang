@@ -13,7 +13,7 @@ async fn get_profile(user_id: web::Json<profile_request>) -> impl Responder {
     let userdata = user_id.into_inner();
     let id: i32 = userdata.id;  
     //ฟังก์ชันget_user_profile จาก src\models\moneylist.rs
-    let data = get_user_profile (id);
+    let data = get_user_profile(id);
 
    HttpResponse::Ok().json(data)
 }
