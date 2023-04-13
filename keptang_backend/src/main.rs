@@ -1,6 +1,5 @@
 use actix_web::{middleware, App, HttpServer, get, Responder, HttpResponse};
 use env_logger::Env;
-use serde::{Deserialize, Serialize};
 
 mod handlers;
 mod models;

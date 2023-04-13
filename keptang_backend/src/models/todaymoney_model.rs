@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use crate::config::db::conDB;
+use crate::config::db::con_db;
 use mysql::*;
 use mysql::prelude::*;
 use chrono::{Local, DateTime};
@@ -7,13 +7,13 @@ use chrono::{Local, DateTime};
 
 // สร้าง struct ใหม่ที่มีเฉพาะส่วนที่ต้องการ Request
 #[derive(Serialize, Deserialize)]
-pub struct today_request {
+pub struct TodayRequest {
     pub user_id: i32,
 }
 
 
 #[derive(Serialize, Deserialize,Clone)]
-pub struct today_response_item {
+pub struct TodayResponseItem {
     pub list_id: i32,
     pub description: String,
     pub amount: i32,
@@ -21,31 +21,31 @@ pub struct today_response_item {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct user_today_response {
+pub struct UserTodayResponse {
     pub user_name: String,
     pub balance_total: i32, 
 }    
     // สร้างโครงสร้างข้อมูลสำหรับรวมผลลัพธ์
 #[derive(Serialize, Deserialize)]
-pub struct today_response {
+pub struct TodayResponse {
     pub user_name: String,
     pub balance_total: i32,
     pub balance_today: i32,
     pub date: String,
-    pub items: Vec<today_response_item>
+    pub items: Vec<TodayResponseItem>
 }
 // money-return-database
-pub fn money_today(user_id:i32) -> Vec <today_response>{
+pub fn money_today(user_id:i32) -> Vec <TodayResponse>{
     let time_now: DateTime<Local> = Local::now();
     let formatted = time_now.format("%Y-%m-%d").to_string();
     let sql_db1 = format!("SELECT  list_id, description, amount, types FROM moneylist WHERE user_id = {} AND date = '{}'", user_id, formatted);
     //get data from userdata table
-    let db1 = conDB()
+    let db1 = con_db()
     .map(|mut conn| {
         conn.query_map(
             sql_db1,
             |(list_id,description,amount,types)| {
-                today_response_item
+                TodayResponseItem
                 {
                     list_id,
                     description,
@@ -58,14 +58,14 @@ pub fn money_today(user_id:i32) -> Vec <today_response>{
    .unwrap_or_else(|_| {
         Ok(Vec::new())
     });
-    //get data from money_list table 
-    let db2 = conDB()
+    //get data from MoneyList table 
+    let db2 = con_db()
     .map(|mut conn| {
         conn.query_map(
             "SELECT  user_name, balance_total 
             FROM userdata WHERE user_id= ".to_owned() + user_id.to_string().as_str(),
             |(user_name,balance_total)| {
-                user_today_response
+                UserTodayResponse
                 {
                     user_name,
                     balance_total       
@@ -77,14 +77,13 @@ pub fn money_today(user_id:i32) -> Vec <today_response>{
         Ok(Vec::new())
     });
     //combine data1 and data2
-    let mut data3: Vec<today_response> = Default::default();
-    let mut db1_copy: Vec<today_response_item> = Default::default();
+    let mut data3: Vec<TodayResponse> = Default::default();
     let mut balance_today_calculator = 0;
     match (db1, db2) {
         (Ok(db1), Ok(db2)) => {
             
-            db1_copy = db1.clone();
-            for j in db1_copy{
+            let db1_clone = db1.clone();
+            for j in db1_clone{
                 if j.types == "income"{
                     balance_today_calculator += j.amount;
                 }else{
@@ -93,7 +92,7 @@ pub fn money_today(user_id:i32) -> Vec <today_response>{
             }
 
             for i in db2 {
-                data3.push(today_response {
+                data3.push(TodayResponse {
                     user_name: i.user_name.clone(),
                     balance_total: i.balance_total,
                     balance_today: balance_today_calculator,                 // ต้องคำนวณจริง 

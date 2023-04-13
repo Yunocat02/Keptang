@@ -1,14 +1,12 @@
 use actix_web::{web, HttpResponse, Responder,post};
-use serde::{Serialize, Deserialize};
 use log::{debug, info};
-use serde_json::json;
 use crate::models::addmoney_model::*;
 use crate::models::editmoney_model::*;
 
 
 // POST /money: สำหรับเพิ่มข้อมูลรายการรายรับรายจ่ายใหม่
 #[post("/money/saving")]
-async fn post_money(input_data: web::Json<add_request>) -> impl Responder {
+async fn post_money(input_data: web::Json<AddRequest>) -> impl Responder {
     info!("post money");
     debug!("post: ✅");
 

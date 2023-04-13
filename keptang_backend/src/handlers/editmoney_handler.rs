@@ -1,13 +1,11 @@
 use actix_web::{put, web, HttpResponse};
 use log::{debug, info};
-use serde::{Deserialize, Serialize};
-use serde_json::json;
 use crate::models::editmoney_model::*;
 use crate::models::money_model::*;
 
 // PUT /money/edit/{id}: รับ JSON ที่มีค่าของคีย์ "expense"/"income" เป็นรายการ JSON ที่มีข้อมูลของรายการรายจ่ายที่ต้องการอัปเดตด้วย ID ที่ระบุ
 #[put("/money/item/{id}")]
-async fn put_money(list_id: web::Path<i32>,input_data: web::Json<edit_request>) -> HttpResponse {
+async fn put_money(list_id: web::Path<i32>,input_data: web::Json<EditRequest>) -> HttpResponse {
     info!("put money by id");
     debug!("id: {} 🪄", list_id);
 
@@ -23,7 +21,7 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<edit_request>) 
     let amount_new = user_data.data_item.amount;
 
     // ดึงค่าเก่ามาเช็คเพื่อคืนค่า amount
-    let data = get_moneylist_byid(user_data.user_data.user_id,id);
+    let data = get_moneylist_byid(user_data.UserData.user_id,id);
         for i in data {
             types_old = i.types;
             amount_old = i.amount;
@@ -39,10 +37,10 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<edit_request>) 
     // debug!("amount_old: {} 🪄", amount_old);
     // debug!("types: {} 🪄", types_old);
     // แก้ไข ยอดเงินทั้งหมดเป็นยอดเดิม
-    edit_balance_total(user_data.user_data.user_id,amount_old,types_old);
+    edit_balance_total(user_data.UserData.user_id,amount_old,types_old);
 
     // แก้ไขค่าใหม่
-    edit_money(user_data.user_data.user_id,
+    edit_money(user_data.UserData.user_id,
         id,
         user_data.data_item.description,
         user_data.data_item.date,
@@ -53,9 +51,9 @@ async fn put_money(list_id: web::Path<i32>,input_data: web::Json<edit_request>) 
     // debug!("แก้ค่าใหม่ 🪄");
     // debug!("amount_old: {} 🪄", amount_new);
     // debug!("types: {} 🪄", types_new);
-    
+
     // แก้ไข ยอดเงินทั้งหมดเป็นค่าล่าสุด
-    edit_balance_total(user_data.user_data.user_id,amount_new,types_new);
+    edit_balance_total(user_data.UserData.user_id,amount_new,types_new);
 
     HttpResponse::Ok().body("ทำการแก้ไขข้อมูลสำเร็จ👌")
 }
