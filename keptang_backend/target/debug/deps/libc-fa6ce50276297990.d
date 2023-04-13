@@ -1,0 +1,11 @@
+c:\src\YunocatProjects\nirut\Keptang\keptang_backend\target\debug\deps\libc-fa6ce50276297990.rmeta: C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\lib.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\macros.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\fixed_width_ints.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\mod.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\msvc\mod.rs
+
+c:\src\YunocatProjects\nirut\Keptang\keptang_backend\target\debug\deps\liblibc-fa6ce50276297990.rlib: C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\lib.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\macros.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\fixed_width_ints.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\mod.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\msvc\mod.rs
+
+c:\src\YunocatProjects\nirut\Keptang\keptang_backend\target\debug\deps\libc-fa6ce50276297990.d: C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\lib.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\macros.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\fixed_width_ints.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\mod.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\msvc\mod.rs
+
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\lib.rs:
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\macros.rs:
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\fixed_width_ints.rs:
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\mod.rs:
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\libc-0.2.140\src\windows\msvc\mod.rs:

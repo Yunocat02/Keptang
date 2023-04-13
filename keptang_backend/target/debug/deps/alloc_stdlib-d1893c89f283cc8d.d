@@ -1,0 +1,9 @@
+C:\src\YunocatProjects\nirut\Keptang\keptang_backend\target\debug\deps\alloc_stdlib-d1893c89f283cc8d.rmeta: C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\lib.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\heap_alloc.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\std_alloc.rs
+
+C:\src\YunocatProjects\nirut\Keptang\keptang_backend\target\debug\deps\liballoc_stdlib-d1893c89f283cc8d.rlib: C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\lib.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\heap_alloc.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\std_alloc.rs
+
+C:\src\YunocatProjects\nirut\Keptang\keptang_backend\target\debug\deps\alloc_stdlib-d1893c89f283cc8d.d: C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\lib.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\heap_alloc.rs C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\std_alloc.rs
+
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\lib.rs:
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\heap_alloc.rs:
+C:\Users\Yunocat\.cargo\registry\src\github.com-1ecc6299db9ec823\alloc-stdlib-0.2.2\src\std_alloc.rs:

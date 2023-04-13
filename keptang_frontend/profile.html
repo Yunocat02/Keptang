@@ -107,29 +107,38 @@
         <div class="row">
             <div class="mt-4 p-2 col-md-3"></div>
             <div class="col-md-4">
-                <div class="container">
-                    <h4>ยอดเงินคงเหลือทั้งหมด: <span id="totalbalance" class="bg-warning px-3 rounded"> บาท</span>
-                        <h4>Username: <span id="username"></span></h5>
-                            <h4>ID: <span id="accountid"></span></h5>
+                <div class="container ">
+                    <h4>ยอดเงินคงเหลือทั้งหมด: <span id="totalbalance" class="bg-warning px-3 rounded"> บาท</span></h4>
+                    <h4>Username: <span id="username"></span></h4>
+                    <h4>ID: <span id="accountid"></span></h4>
                 </div>
                 <div class="mt-4 p-2 col-md-4"></div>
             </div>
         </div>
         <script>
             function getData() {
-                const userId = 40956;
-                fetch(`http://localhost:8080/profile?id=${userId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const accountid = data.id;
-                        document.getElementById('accountid').textContent = accountid;
-                        const username = data.name;
-                        document.getElementById('username').textContent = username;
-                        const totalbalance = data.balance_total;
-                        document.getElementById('totalbalance').textContent = totalbalance;
-                    });
+                const url = new URL('http://127.0.0.1:8080/profile/40956');
+    
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const username = data[0].name;
+                    const accountid = data[0].id;
+                    const balance_total = data[0].balance_total;
+                    document.getElementById('username').innerText = username;
+                    document.getElementById('accountid').innerText = accountid;
+                    document.getElementById('totalbalance').innerText = `${balance_total}`;
+                })
+                .catch(error => console.error(error));
             }
         </script>
+
 </body>
 
 </html>

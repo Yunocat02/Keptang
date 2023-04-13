@@ -125,12 +125,12 @@
         <script>
             function getData() {
                 const userId = 40956;
-                fetch(`http://localhost:8080/money/today?id=${userId}`)
+                fetch(`http://localhost:8080/money/today/${userId}`)
                 .then(response => response.json())
   .then(data => {
-    const datetoday = data.date;
+    const datetoday = data[0].date;
     document.getElementById('datetoday').textContent = datetoday;
-    const items = data.items;
+    const items = data[0].items;
     const tableBody = document.getElementById('table-body');
     let incomeTotal = 0;
     let expenseTotal = 0;
@@ -150,13 +150,13 @@
         incomeTotal += item.amount;
         descCell.textContent = item.description;
       } else if (item.types === 'expense') {
-        amountCell.textContent = '';
+        amountCell.textContent = '-';
         expenseTotal += item.amount;
         descCell.textContent = item.description;
       }
       
       const expenseCell = document.createElement('td');
-      expenseCell.textContent = item.types === 'expense' ? item.amount : '';
+      expenseCell.textContent = item.types === 'expense' ? item.amount : '-';
       
       const balanceCell = document.createElement('td');
       balanceCell.textContent = incomeTotal - expenseTotal;

@@ -123,31 +123,108 @@
           </div>
 
         </div>
+        <div class="row mt-4 fs-4 text-center">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">วันที่</th>
+                <th scope="col">ประเภท</th>
+                <th scope="col">จำนวนเงิน</th>
+                <th scope="col">หมายเหตุ</th>
+                <th scope="col">Action</th>
+
+              </tr>
+            </thead>
+            <tbody id="history">
+              <tr>
+                <form action="" method="post">
+                  <td>-</td>
+                  <td>API Error</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <input type="hidden" name="id">
+                  <td><button class="btn btn-primary bi bi-pencil-square" type="submit">Edit</button></td>
+                </form>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
+  </div>
+
+  <script>
+    function getData() {
+      const userid = 40956;
+      fetch(`http://localhost:8080/money/${userid}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(data)
+      })
+
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+                    const todaybalance = data[0].balance_today;
+                    const totalbalance = data[0].balance_total;
+          document.getElementById('totalbalance').textContent = totalbalance + " บาท";
+          document.getElementById('todaybalance').textContent = todaybalance + " บาท";
 
 
-      <script>
-        function getData() {
-          const userId = 40956;
-          fetch(`http://localhost:8080/money?id=${userId}`)
-            .then(response => response.json())
-            .then(data => {
-              const totalbalance = data.balance_total;
-              document.getElementById('totalbalance').textContent = totalbalance;
-              
-              const todaybalance = data.balance_today;
-              document.getElementById('todaybalance').textContent = todaybalance;
 
-              const incomebalance = data.balance_income;
-              document.getElementById('incomebalance').textContent = incomebalance;
+          // Create a table to display the items list
+          let itemsTable = '';
+          let pay = 0;
+          let receive = 0;
+          for (let i = 0; i < data[0].items.length; i++) {
+            const item = data[0].items[i];
+            itemsTable += '<tr><td>' + item.date + '</td><td>' + item.types + '</td><td>' + item.amount + " บาท" + '</td><td>' + item.description + '</td><td><input type="hidden" value="'+data.list_id+'"><button class="btn btn-primary bi bi-pencil-square" onclick="editData(' + data.list_id + ')">Edit</button><button class="btn btn-danger bi bi-pencil-square onclick="deleteData()">Delete</button></td></tr>';
+                        if (item.types === "expense") {
+              pay += item.amount;
+            } else if (item.types === "income") {
+              receive += item.amount;
+            }
+          }
 
-              const expensebalance = data.balance_expense;
-              document.getElementById('expensebalance').textContent = expensebalance;
-            });
-        }
+          document.getElementById('incomebalance').textContent = receive + " บาท";
+          document.getElementById('expensebalance').textContent = pay + " บาท";
 
-      </script>
+          // Set the items table in the HTML element with id "itemslist"
+          document.getElementById('history').innerHTML = itemsTable;
+        });
+    }
+
+        //window.addEventListener('load', getData);
+  </script>
 </body>
 
 </html>
+
+<script>
+  function editData(list_id) {
+  window.location.href = 'moneyedit.html?list_id=' + list_id;
+}
+  function deleteData() {
+    deleteid = document.getElementById(data.list_id)
+    const data = {
+      user_data: {
+        user_id: 40956
+      }
+    };
+    const url = "http://localhost:8080/money/item/{$deleteid}";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    };
+    fetch(url, options)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  }
+</script>
