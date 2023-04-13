@@ -1,13 +1,12 @@
 use actix_web::{ get, HttpResponse, Responder, web};
 use log::{info};
-use serde::{Serialize, Deserialize};
 use crate::models::profile_model::*;
 
 
 
 // GET /profile 
 #[get("/profile")]
-async fn get_profile(user_id: web::Json<profile_request>) -> impl Responder {
+async fn get_profile(user_id: web::Json<ProfileRequest>) -> impl Responder {
     info!("Keptang profile");
 
     let userdata = user_id.into_inner();

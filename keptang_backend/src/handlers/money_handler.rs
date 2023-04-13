@@ -1,14 +1,12 @@
 use actix_web::{ get, HttpResponse, Responder, web};
 use log::{ info};
-use serde_json::json;
-use serde::{Serialize, Deserialize};
 use crate::models::money_model::*;
 
 
 
 // GET /money: สำหรับอ่านข้อมูลรายการรายรับรายจ่ายทั้งหมด
 #[get("/money")]
-async fn get_money(user_id: web::Json<money_request>) -> impl Responder {
+async fn get_money(user_id: web::Json<MoneyRequest>) -> impl Responder {
     info!("Keptang money");
 
     // ค่า id ที่รับมา
