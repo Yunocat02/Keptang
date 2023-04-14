@@ -15,7 +15,7 @@
 
     .bg-light {
       flex: 1;
-      height: 100%;
+      /* height: 100%; */
       width: 100%;
       padding-bottom: 3rem;
       background-image: url('image.png');
@@ -75,7 +75,7 @@
       integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
       crossorigin="anonymous"></script>
     <!-- <link href="headers.css" rel="stylesheet"> -->
-    <title>w1</title>
+    <title>เพิ่มรายรับ/รายจ่าย</title>
   </head>
 
 <body class="mx-5" style="background-color:#B2A4FF;">
@@ -86,7 +86,6 @@
           <li><a href="money.html" class="nav-link px-2 text-white fs-5">หน้าหลัก</a></li>
           <li><a href="moneytoday.html" class="nav-link px-2 text-white fs-5">รายรับ/รายจ่ายวันนี้</a></li>
           <li><a href="moneyadd.html" class="nav-link px-2 text-warning fs-5">เพิ่มรายรับ/รายจ่าย</a></li>
-          <li><a href="moneyedit.html" class="nav-link px-2 text-white fs-5">แก้ไขรายรับรายจ่าย</a></li>
         </ul>
       </div>
       <div class="col-6">
@@ -107,27 +106,27 @@
       <div class="my-5 col-md-6">
         <h1>เพิ่มรายรับ/รายจ่าย</h1>
       </div>
-        <div class="mb-3">
-          <label for="type" class="form-label">ประเภท</label>
-          <select class="form-select" id="type" name="type">
-            <option value="income">รายรับ</option>
-            <option value="expense">รายจ่าย</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="amount" class="form-label">จำนวนเงิน</label>
-          <input type="number" class="form-control" id="amount" name="amount" required>
-        </div>
-        <div class="mb-3">
-          <label for="note" class="form-label">หมายเหตุ</label>
-          <textarea class="form-control" id="note" name="note" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="datetime" class="form-label">วันที่-เวลา</label>
-          <input type="date" class="form-control" id="datetime" name="datetime" required>
-          <!-- <input type="hidden" name="userId" value="40956"> -->
-        </div>
-        <button class="btn btn-primary" onclick="sendData()">เพิ่มรายการ</button>
+      <div class="mb-3">
+        <label for="type" class="form-label">ประเภท</label>
+        <select class="form-select" id="type" name="type">
+          <option value="income">รายรับ</option>
+          <option value="expense">รายจ่าย</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">จำนวนเงิน</label>
+        <input type="number" class="form-control" id="amount" name="amount" required>
+      </div>
+      <div class="mb-3">
+        <label for="note" class="form-label">หมายเหตุ</label>
+        <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="datetime" class="form-label">วันที่-เวลา</label>
+        <input type="date" class="form-control" id="datetime" name="datetime" required>
+        <!-- <input type="hidden" name="userId" value="40956"> -->
+      </div>
+      <button class="btn btn-primary" id="myButton" onclick="sendData()">เพิ่มรายการ</button>
     </div>
   </div>
   <script>
@@ -152,12 +151,16 @@
         body: JSON.stringify(data)
       };
       fetch(url, options)
-        .then(response => response.json())
-        .then(data => console.log(data))
+        .then(response => response.text())
+        .then(data => {
+          alert(data);
+          location.reload();
+        })
         .catch(error => console.error(error));
+
+
     }
   </script>
 </body>
+
 </html>
-
-

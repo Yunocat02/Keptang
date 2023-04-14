@@ -15,7 +15,7 @@
 
     .bg-light {
       flex: 1;
-      height: 100%;
+      /* height: 100%; */
       width: 100%;
       padding-bottom: 3rem;
       background-image: url('image.png');
@@ -74,8 +74,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
       crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <!-- <link href="headers.css" rel="stylesheet"> -->
-    <title>w1</title>
+    <title>หน้าหลัก</title>
 
   </head>
 
@@ -87,7 +88,6 @@
           <li><a href="money.html" class="nav-link px-2 text-warning fs-5">หน้าหลัก</a></li>
           <li><a href="moneytoday.html" class="nav-link px-2 text-white fs-5">รายรับ/รายจ่ายวันนี้</a></li>
           <li><a href="moneyadd.html" class="nav-link px-2 text-white fs-5">เพิ่มรายรับ/รายจ่าย</a></li>
-          <li><a href="moneyedit.html" class="nav-link px-2 text-white fs-5">แก้ไขรายรับรายจ่าย</a></li>
         </ul>
       </div>
       <div class="col-6">
@@ -168,10 +168,10 @@
         .then(response => response.json())
         .then(data => {
           console.log(data);
-                    const todaybalance = data[0].balance_today;
-                    const totalbalance = data[0].balance_total;
-          document.getElementById('totalbalance').textContent = totalbalance + " บาท";
-          document.getElementById('todaybalance').textContent = todaybalance + " บาท";
+          const todaybalance = data[0].balance_today;
+          const totalbalance = data[0].balance_total;
+          document.getElementById('totalbalance').textContent = totalbalance.toLocaleString() + " บาท";
+          document.getElementById('todaybalance').textContent = todaybalance.toLocaleString() + " บาท";
 
 
 
@@ -179,18 +179,19 @@
           let itemsTable = '';
           let pay = 0;
           let receive = 0;
-          for (let i = 0; i < data[0].items.length; i++) {
+          let x = data[0].items.map(item => item.list_id);
+          for (let i = data[0].items.length-1; i >= 0; i--) {
             const item = data[0].items[i];
-            itemsTable += '<tr><td>' + item.date + '</td><td>' + item.types + '</td><td>' + item.amount + " บาท" + '</td><td>' + item.description + '</td><td><input type="hidden" value="'+data.list_id+'"><button class="btn btn-primary bi bi-pencil-square" onclick="editData(' + data.list_id + ')">Edit</button><button class="btn btn-danger bi bi-pencil-square onclick="deleteData()">Delete</button></td></tr>';
-                        if (item.types === "expense") {
+            itemsTable += '<tr><td>' + item.date + '</td><td>' + (item.types=="expense"?"รายจ่าย":"รายรับ") + '</td><td>' + item.amount.toLocaleString() + " บาท" + '</td><td>' + item.description + '</td><td><button class="btn btn-primary bi bi-pencil-square mx-3" onclick="editData(' + x[i] + ')"> Edit</button><button class="btn btn-danger bi bi-trash" onclick="deleteData(' + x[i] + ')"> Delete</button></td></tr>';
+            if (item.types === "expense") {
               pay += item.amount;
             } else if (item.types === "income") {
               receive += item.amount;
             }
           }
 
-          document.getElementById('incomebalance').textContent = receive + " บาท";
-          document.getElementById('expensebalance').textContent = pay + " บาท";
+          document.getElementById('incomebalance').textContent = receive.toLocaleString() + " บาท";
+          document.getElementById('expensebalance').textContent = pay.toLocaleString() + " บาท";
 
           // Set the items table in the HTML element with id "itemslist"
           document.getElementById('history').innerHTML = itemsTable;
@@ -205,26 +206,33 @@
 
 <script>
   function editData(list_id) {
-  window.location.href = 'moneyedit.html?list_id=' + list_id;
-}
-  function deleteData() {
-    deleteid = document.getElementById(data.list_id)
+    window.location.href = 'moneyedit.html?list_id=' + list_id;
+  }
+</script>
+
+<script>
+  function deleteData(list_id) {
+    if (confirm("คุณยืนยันที่จะลบใช่หรือไม่")) {
+  
     const data = {
-      user_data: {
-        user_id: 40956
-      }
+      user_id: 40956
     };
-    const url = "http://localhost:8080/money/item/{$deleteid}";
+    const url = `http://localhost:8080/money/item/${list_id}`;
     const options = {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     };
     fetch(url, options)
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
+  .then(response => response.text())
+  .then(data => {
+    alert(data);
+    location.reload();
+  })
+  .catch(error => console.error(error));
+    }
   }
+
 </script>

@@ -13,7 +13,7 @@
 
     .bg-light {
         flex: 1;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
         padding-bottom: 3rem;
         background-image: url('image.png');
@@ -73,7 +73,7 @@
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
     <!-- <link href="headers.css" rel="stylesheet"> -->
-    <title>w1</title>
+    <title>โปรไฟล์</title>
 </head>
 
 <body class="mx-5" onload="getData()" style="background-color:#B2A4FF;">
@@ -84,7 +84,6 @@
                     <li><a href="money.html" class="nav-link px-2 text-white fs-5">หน้าหลัก</a></li>
                     <li><a href="moneytoday.html" class="nav-link px-2 text-white fs-5">รายรับ/รายจ่ายวันนี้</a></li>
                     <li><a href="moneyadd.html" class="nav-link px-2 text-white fs-5">เพิ่มรายรับ/รายจ่าย</a></li>
-                    <li><a href="moneyedit.html" class="nav-link px-2 text-white fs-5">แก้ไขรายรับรายจ่าย</a></li>
                 </ul>
             </div>
             <div class="col-6">
@@ -133,7 +132,7 @@
                     const balance_total = data[0].balance_total;
                     document.getElementById('username').innerText = username;
                     document.getElementById('accountid').innerText = accountid;
-                    document.getElementById('totalbalance').innerText = `${balance_total}`;
+                    document.getElementById('totalbalance').innerText = `${balance_total.toLocaleString()} บาท`;
                 })
                 .catch(error => console.error(error));
             }
