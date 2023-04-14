@@ -3,7 +3,7 @@
 		"_postman_id": "39db54eb-a650-45dc-825e-9e7be49134b5",
 		"name": "keptang2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26300812"
+		"_exporter_id": "26555736"
 	},
 	"item": [
 		{
@@ -13,10 +13,16 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": 40956\r\n}",
+					"raw": "{\r\n  \"id\": 40956\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +90,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": 40956\r\n}",
+					"raw": "{\r\n  \"user_id\": 40954\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -116,7 +122,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_data\": {\r\n        \"id\": 40956\r\n    },\r\n   \"data_item\": {\r\n        \"description\": \"รายรับทดสอบ\",\r\n        \"date\": \"2023-03-15\",\r\n        \"amount\": 100000,\r\n        \"types\": \"income\"\r\n    } \r\n}",
+					"raw": "{\r\n    \"user_data\": {\r\n        \"user_id\": 40954\r\n    },\r\n   \"data_item\": {\r\n        \"description\": \"ค่าช่วยงานรุท\",\r\n        \"date\": \"2023-04-13\",\r\n        \"amount\": 30,\r\n        \"types\": \"expenses\"\r\n    } \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -148,7 +154,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"user_data\": {\r\n    \"id\": 40956\r\n  },\r\n  \"dataitem\": {\r\n    \"description\": \"รายรับทดสอบ\",\r\n    \"date\": \"2023-03-15\",\r\n    \"amount\": 1000,\r\n    \"types\": \"expenses\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"UserData\": {\r\n    \"user_id\": 40954\r\n  },\r\n  \"data_item\": {\r\n    \"description\": \"รุทเก็บตังอีก\",\r\n    \"date\": \"2023-04-13\",\r\n    \"amount\": 20,\r\n    \"types\": \"expenses\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -156,7 +162,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/money/item/3",
+					"raw": "http://127.0.0.1:8080/money/item/18",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -168,7 +174,7 @@
 					"path": [
 						"money",
 						"item",
-						"3"
+						"18"
 					]
 				}
 			},
@@ -181,7 +187,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": 40956\r\n}",
+					"raw": "{\r\n  \"user_id\": 40954\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -189,7 +195,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8080/money/item/3",
+					"raw": "http://127.0.0.1:8080/money/item/18",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -201,7 +207,7 @@
 					"path": [
 						"money",
 						"item",
-						"3"
+						"18"
 					]
 				}
 			},
