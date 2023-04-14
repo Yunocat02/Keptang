@@ -13,7 +13,7 @@
 
     .bg-light {
         flex: 1;
-        height: 100%;
+        /* height: 100%; */
         width: 100%;
         padding-bottom: 3rem;
         background-image: url('image.png');
@@ -73,7 +73,7 @@
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
     <!-- <link href="headers.css" rel="stylesheet"> -->
-    <title>w1</title>
+    <title>โปรไฟล์</title>
 </head>
 
 <body class="mx-5" onload="getData()" style="background-color:#B2A4FF;">
@@ -84,7 +84,6 @@
                     <li><a href="money.html" class="nav-link px-2 text-white fs-5">หน้าหลัก</a></li>
                     <li><a href="moneytoday.html" class="nav-link px-2 text-white fs-5">รายรับ/รายจ่ายวันนี้</a></li>
                     <li><a href="moneyadd.html" class="nav-link px-2 text-white fs-5">เพิ่มรายรับ/รายจ่าย</a></li>
-                    <li><a href="moneyedit.html" class="nav-link px-2 text-white fs-5">แก้ไขรายรับรายจ่าย</a></li>
                 </ul>
             </div>
             <div class="col-6">
@@ -108,28 +107,37 @@
             <div class="mt-4 p-2 col-md-3"></div>
             <div class="col-md-4">
                 <div class="container ">
-                    <h4>ยอดเงินคงเหลือทั้งหมด: <span id="totalbalance" class="bg-warning px-3 rounded"> บาท</span>
-                        <h4>Username: <span id="username"></span></h5>
-                            <h4>ID: <span id="accountid"></span></h5>
+                    <h4>ยอดเงินคงเหลือทั้งหมด: <span id="totalbalance" class="bg-warning px-3 rounded"> บาท</span></h4>
+                    <h4>Username: <span id="username"></span></h4>
+                    <h4>ID: <span id="accountid"></span></h4>
                 </div>
                 <div class="mt-4 p-2 col-md-4"></div>
             </div>
         </div>
         <script>
             function getData() {
-                const userId = 40956;
-                fetch(`http://localhost:8080/profile?id=${userId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const accountid = data.id;
-                        document.getElementById('accountid').textContent = accountid;
-                        const username = data.name;
-                        document.getElementById('username').textContent = username;
-                        const totalbalance = data.balance_total;
-                        document.getElementById('totalbalance').textContent = totalbalance;
-                    });
+                const url = new URL('http://127.0.0.1:8080/profile/40956');
+    
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const username = data[0].name;
+                    const accountid = data[0].id;
+                    const balance_total = data[0].balance_total;
+                    document.getElementById('username').innerText = username;
+                    document.getElementById('accountid').innerText = accountid;
+                    document.getElementById('totalbalance').innerText = `${balance_total.toLocaleString()} บาท`;
+                })
+                .catch(error => console.error(error));
             }
         </script>
+
 </body>
 
 </html>
